@@ -1,0 +1,32 @@
+public void Service_Log(String MethodName, String Parameter, String Output) {
+
+		try {
+
+			String filepath = GlobalConfig.DB_SERVICELOG;
+			filepath = filepath + "/" + LocalDate.now();
+			System.out.println("filepath  :: "+filepath);
+			File file = new File(filepath);
+			if (!file.exists()) {
+				System.out.println("if");
+				file.mkdirs();
+			}
+			filepath = filepath + "/" + LocalDate.now() + ".txt";
+			System.out.println("filepath -- " + filepath);
+
+			String data = "Method Name       :   " + MethodName + "" + "\n" + "" + "Input Parameter   :   " + Parameter
+					+ "" + "\n" + "Output Values     :   " + Output + "" + "\n" + "Date & Time       :   "
+					+ LocalDateTime.now() + "\n"
+					+ "---------------------------------------------------------------------------------------------"
+					+ "\n";
+
+			FileWriter fileWritter = new FileWriter(filepath, true);
+			BufferedWriter bw = new BufferedWriter(fileWritter);
+			bw.write(data);
+			bw.close();
+
+		} catch (Exception e) {
+
+			log.error("Method Name : Service_Log" + e.toString());
+			e.getMessage();
+		}
+	}
